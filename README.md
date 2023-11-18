@@ -41,10 +41,10 @@ fn main() {
     thread::sleep(Duration::from_secs(30));
 
     println!("After clearing expired entries:");
-    println!("Value for number: {:?}", cache.get("number"));
-    println!("Value for text: {:?}", cache.get("text"));
+    println!("Value for number: {:?}", cache.get::<i32>("number"));
+    println!("Value for text: {:?}", cache.get::<String>("text"));
     cache.remove("text");
-    println!("Value for text: {:?}", cache.get("text"));
+    println!("Value for text: {:?}", cache.get::<String>("text"));
 }
 ```
 
@@ -66,7 +66,7 @@ fn main() {
     cache.insert("list".to_string(), vec![1, 2, 3], 0);
     cache.insert("text".to_string(), "Hello, Rust!".to_string(), 0); // 0代表永不过期
 
-    println!("Value for number: {:?}", cache.get::<u16>("number"));
+    println!("Value for number: {:?}", cache.get::<i32>("number"));
     println!("Value for list: {:?}", cache.get::<Vec<i32>>("list"));
     println!("Value for text: {:?}", cache.get::<Vec<i32>>("text"));
 }
@@ -96,8 +96,8 @@ fn main() {
     println!("Value for key1: {:?}", cache.get("key1"));
     println!("Value for key2: {:?}", cache.get("key2"));
     sub_fun(cache.clone());
-    println!("Value for text: {:?}", cache.get::<Vec<String>>("sub_key1"));
+    println!("Value for text: {:?}", cache.get::<String>("sub_key1"));
     cache.remove("sub_key1");
-    println!("Value for text: {:?}", cache.get::<Vec<String>>("sub_key1"));
+    println!("Value for text: {:?}", cache.get::<String>("sub_key1"));
 }
 ```
