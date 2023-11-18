@@ -6,7 +6,7 @@ authors = ["baiyue"]
 description = "A key-value cache library in Rust featuring dynamic typing with support for multiple data types, automatic expiration, and thread-safe operations using Arc and RwLock."
 repository = "https://github.com/Baiyuetribe/safe_cache"
 license = "MIT"
-keywords = ["cache", "timer_cache", "rs_cache", "cache_rs", "cache_rs_timer_arc_rwlock"]
+keywords = ["cache", "timer_cache", "rs_cache", "cache_rs", "cache_rs_timer_arc"]
 categories = ["config", "rust-patterns"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
