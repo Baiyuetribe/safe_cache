@@ -23,7 +23,7 @@ impl Cache {
             None
         }
     }
-    pub fn insert<T: 'static + Clone + Send>(&self, key: String, value: T, expire_seconds: u64) {
+    pub fn set<T: 'static + Clone + Send>(&self, key: String, value: T, expire_seconds: u64) {
         let expiration_time = if expire_seconds == 0 {
             None
         } else {

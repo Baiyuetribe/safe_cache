@@ -23,7 +23,7 @@ impl Cache {
             None
         }
     }
-    pub fn insert<T: 'static + Clone + Send>(&self, key: String, value: T, expire_seconds: u64) {
+    pub fn set<T: 'static + Clone + Send>(&self, key: String, value: T, expire_seconds: u64) {
         let expiration_time = if expire_seconds == 0 {
             None
         } else {
@@ -67,9 +67,9 @@ fn main() -> () {
     start_cleanup_thread(cache_clone, 10);
 
     // 示例使用
-    cache.insert("number".to_string(), 42, 60);
-    cache.insert("list".to_string(), vec![1, 2, 3], 60);
-    cache.insert("text".to_string(), "Hello, Rust!".to_string(), 120);
+    cache.set("number".to_string(), 42, 60);
+    cache.set("list".to_string(), vec![1, 2, 3], 60);
+    cache.set("text".to_string(), "Hello, Rust!".to_string(), 120);
 
     println!("Value for number: {:?}", cache.get::<u16>("number"));
     println!("Value for number: {:?}", cache.get::<i32>("number"));
