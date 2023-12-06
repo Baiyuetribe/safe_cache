@@ -1,6 +1,6 @@
 [package]
 name = "safe_cache"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 authors = ["baiyue"]
 description = "A key-value cache library in Rust featuring dynamic typing with support for multiple data types, automatic expiration, and thread-safe operations using Arc and RwLock."
