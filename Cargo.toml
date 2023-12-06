@@ -18,4 +18,4 @@ categories = ["config", "rust-patterns"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tokio = { version = "*", features = ["rt", "time"] }
+tokio = { version = "1.34.0", features = ["rt", "time"] }
