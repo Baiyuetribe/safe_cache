@@ -35,6 +35,10 @@ impl Cache {
         );
 
         let mut data = self.data.lock().unwrap();
+        if data.len() > 10240 {
+            // set max cache size
+            data.clear();
+        }
         data.insert(key, entry);
     }
 
