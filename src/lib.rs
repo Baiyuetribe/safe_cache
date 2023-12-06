@@ -50,11 +50,33 @@ impl Cache {
     }
 }
 
-pub fn start_cleanup_thread(cache: Arc<Cache>, secs: u64) {
-    std::thread::spawn(move || {
+// block_cleanup_task 会阻塞当前线程，所以一般不会用这个函数
+// pub fn block_cleanup_task(cache: Arc<Cache>, secs: u64) {
+//     std::thread::spawn(move || {
+//         loop {
+//             std::thread::sleep(Duration::from_secs(secs)); // 每几秒清理一次
+//             cache.clear_expired_entries();
+//         }
+//     });
+// }
+
+pub async fn async_cleanup_task(cache: Arc<Cache>, secs: u64) {
+    tokio::spawn(async move {
+        let mut interval = tokio::time::interval(Duration::from_secs(secs));
         loop {
-            std::thread::sleep(Duration::from_secs(secs)); // 每几秒清理一次
+            interval.tick().await;
             cache.clear_expired_entries();
         }
     });
+}
+
+#[cfg(test)]
+async fn test_cache() {
+    let cache = Arc::new(Cache::new());
+    let cache1 = cache.clone();
+    async_cleanup_task(cache1, 1).await;
+    cache.set("a".to_string(), 1, 1);
+    assert_eq!(cache.get::<i32>("a"), Some(1));
+    tokio::time::sleep(Duration::from_secs(2)).await;
+    assert_eq!(cache.get::<i32>("a"), None);
 }

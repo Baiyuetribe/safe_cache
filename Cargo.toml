@@ -1,6 +1,6 @@
 [package]
 name = "safe_cache"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 authors = ["baiyue"]
 description = "A key-value cache library in Rust featuring dynamic typing with support for multiple data types, automatic expiration, and thread-safe operations using Arc and RwLock."
@@ -18,3 +18,4 @@ categories = ["config", "rust-patterns"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+tokio = { version = "*", features = ["rt", "time"] }
