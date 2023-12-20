@@ -4,6 +4,8 @@
 
 - [x] k-v 键值缓存,v 值为泛型，支持任意类型
 - [x] Mutex 并发安全
+- [x] Rwlock 模式读写锁
+- [x] 线程安全
 - [x] 简单有效
 
 ## Install
@@ -17,7 +19,8 @@ cargo add safe_cache
 场景 1：定义缓存及清理时间
 
 ```rust
-use safe_cache::{Cache, async_cleanup_task};
+use safe_cache::{Cache, async_cleanup_task}; // with Mutex
+// use safe_cache::{CacheRwLock, async_cleanup_task_rwlock}; or rwlock
 use std::sync::Arc;
 
 async fn main() {
@@ -77,5 +80,10 @@ impl Cache<T> {
     fn set<T: 'static + Clone + Send>(&self, key: String, value: T, expire_seconds: u64);
     fn get<T: 'static + Clone>(&self, key: &str) -> Option<T>;
     fn remove(&self, key: &str);
+}
+impl CacheRwLock {
+    fn get<T: 'static + Clone>(&self, key: &str) -> Option<T>;
+    pub fn set<T: 'static + Clone + Send + Sync>(&self,key: String,value: T,expire_seconds: u64,);
+    pub fn remove(&self, key: &str);
 }
 ```
